@@ -8,6 +8,10 @@ from constants import *
 def main():
     # initialize the pygame import
     pygame.init()
+    # creating a clock object
+    game_clock = pygame.time.Clock()
+    # set up the delta variable
+    dt = 0
     # sets up the screen using the static variables from the constants import
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     # the game loop; True refers to "while the game is on"
@@ -22,10 +26,8 @@ def main():
         screen.fill((0, 0, 0))
         # display.flip refreshes the screen; should always be called last
         pygame.display.flip()
-    
-    # print("Starting Asteroids!")
-    # print(f"Screen width: {SCREEN_WIDTH}")
-    # print(f"Screen height: {SCREEN_HEIGHT}")
+        # calling the .tick() method, setting fps to 60, and translating that time to seconds and capturing it in dt
+        dt = game_clock.tick(60) / 1000
 
 if __name__ == "__main__":
     main()
