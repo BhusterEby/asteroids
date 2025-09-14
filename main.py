@@ -18,7 +18,7 @@ def main():
     # sets up the screen using the static variables from the constants import
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     # setting up the player
-    gamer = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     # the game loop; True refers to "while the game is on"
     while True:
         # for each event that occurs per iteration
@@ -29,8 +29,10 @@ def main():
                 return
         # this fills the screen with a black background (0 red, 0 blue, 0 green)
         screen.fill((0, 0, 0))
-        # draw the player
-        gamer.draw(screen)
+        # update the player's position [ROTATION]
+        player.update(dt)
+        # render the player
+        player.draw(screen)
         # display.flip refreshes the screen; should always be called last
         pygame.display.flip()
         # calling the .tick() method, setting fps to 60, and translating that time to seconds and capturing it in dt

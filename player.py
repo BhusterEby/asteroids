@@ -25,3 +25,21 @@ class Player(CircleShape):
     def draw(self, screen):
         # takes the screen object, color (white), the three points from the Triangle method, and a line width of 2
         pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
+    
+    # a rotate method
+    def rotate(self, dt):
+        # adds the turn speed to the current rotation
+        self.rotation += PLAYER_TURN_SPEED * dt
+    
+    # an update method
+    def update(self, dt):
+        # maps the key that gets pressed to a variable
+        keys = pygame.key.get_pressed()
+
+        # checks to see if "a" or "d" gets pressed
+        if keys[pygame.K_a]:
+            # rotate counter-clockwise
+            self.rotate(-dt)
+        if keys[pygame.K_d]:
+            # rotate clockwise
+            self.rotate(dt)
