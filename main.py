@@ -4,6 +4,9 @@
 import pygame
 # import everything from constants.py into the current file
 from constants import *
+# importing the other files into this one
+from circleshape import *
+from player import *
 
 def main():
     # initialize the pygame import
@@ -14,6 +17,8 @@ def main():
     dt = 0
     # sets up the screen using the static variables from the constants import
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    # setting up the player
+    gamer = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     # the game loop; True refers to "while the game is on"
     while True:
         # for each event that occurs per iteration
@@ -24,6 +29,8 @@ def main():
                 return
         # this fills the screen with a black background (0 red, 0 blue, 0 green)
         screen.fill((0, 0, 0))
+        # draw the player
+        gamer.draw(screen)
         # display.flip refreshes the screen; should always be called last
         pygame.display.flip()
         # calling the .tick() method, setting fps to 60, and translating that time to seconds and capturing it in dt
