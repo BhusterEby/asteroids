@@ -31,15 +31,34 @@ class Player(CircleShape):
         # adds the turn speed to the current rotation
         self.rotation += PLAYER_TURN_SPEED * dt
     
-    # an update method
+    # a moving method
+    def move(self, dt):
+        # again, boot.dev helped me not do math, but I can explain this one
+        # ==tl;dr==
+        # we draw a vector straight up
+        # rotate it to match the player's orientation
+        # multiply speed and dt (bigger vectors create faster movements)
+        # add the new vector to our player
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt
+    
+    # an update method, which gives controls to the player
     def update(self, dt):
         # maps the key that gets pressed to a variable
         keys = pygame.key.get_pressed()
 
-        # checks to see if "a" or "d" gets pressed
+        # ROTATE: checks to see if "a" or "d" gets pressed
         if keys[pygame.K_a]:
             # rotate counter-clockwise
             self.rotate(-dt)
         if keys[pygame.K_d]:
             # rotate clockwise
             self.rotate(dt)
+        
+        # MOVING: checks to see if "w" or "s" gets pressed
+        if keys[pygame.K_w]:
+            # move forward
+            self.move(dt)
+        if keys[pygame.K_s]:
+            # move backward
+            self.move(-dt)
