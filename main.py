@@ -7,6 +7,8 @@ from constants import *
 # importing the other files into this one
 from circleshape import *
 from player import *
+from asteroid import *
+from asteroidfield import *
 
 def main():
     # ==INITIALIZING==
@@ -21,14 +23,23 @@ def main():
     # sets up the screen using the static variables from the constants import
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     # creating a group for all objects requiring updates
-    update_group = pygame.sprite.Group()
+    updatable = pygame.sprite.Group()
     # creating a group for all objects that get drawn
-    draw_group = pygame.sprite.Group()
-    Player.containers = (update_group, draw_group)
+    drawable = pygame.sprite.Group()
+    # putting the Player class into the "update" and "draw" groups
+    Player.containers = (updatable, drawable)
+    # creating a group for every asteroid
+    asteroidable = pygame.sprite.Group()
+    # putting the Asteroid class into the "update," "draw," and "asteroid" groups
+    Asteroid.containers = (asteroidable, updatable, drawable)
+    # putting the Asteroid Field class into the "update" group
+    AsteroidField.containers = (updatable)
 
     # ==SPECIAL SETUPS==
     # setting up the player
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    # setting up the asteroid field
+    field = AsteroidField()
 
     # ==GAMEPLAY LOOP==
     # the game loop; True refers to "while the game is on"
@@ -42,9 +53,9 @@ def main():
         # this fills the screen with a black background (0 red, 0 blue, 0 green)
         screen.fill((0, 0, 0))
         # update everything
-        update_group.update(dt)
+        updatable.update(dt)
         # render everything using a loop
-        for item in draw_group:
+        for item in drawable:
             # render this item
             item.draw(screen)
         # display.flip refreshes the screen; should always be called last
