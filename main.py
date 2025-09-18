@@ -9,6 +9,7 @@ from circleshape import *
 from player import *
 from asteroid import *
 from asteroidfield import *
+from shot import *
 
 def main():
     # ==INITIALIZING==
@@ -34,6 +35,10 @@ def main():
     Asteroid.containers = (asteroidable, updatable, drawable)
     # putting the Asteroid Field class into the "update" group
     AsteroidField.containers = (updatable)
+    # creating a group for every shot
+    shootable = pygame.sprite.Group()
+    # putting the Shot class into the "shot" group
+    Shot.containers = (shootable, updatable, drawable)
 
     # ==SPECIAL SETUPS==
     # setting up the player
