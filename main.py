@@ -61,11 +61,20 @@ def main():
         updatable.update(dt)
         # checking for player collision
         for rock in asteroidable:
-            # if statement that checksthe collision
+            # if statement that checks the collision
             if rock.collide(player):
                 # when it becomes true, print "Game over!" to the console and immediately exit the program
                 print("Game over!")
                 return
+        # checking for bullet collision
+        for rock in asteroidable:
+            # check to see which bullet, if any, collided
+            for shot in shootable:
+                # do they collide?
+                if shot.collide(rock):
+                    # if true, KILL
+                    rock.kill()
+                    shot.kill()
         # render everything using a loop
         for item in drawable:
             # render this item
