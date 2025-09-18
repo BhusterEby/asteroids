@@ -54,6 +54,13 @@ def main():
         screen.fill((0, 0, 0))
         # update everything
         updatable.update(dt)
+        # checking for player collision
+        for rock in asteroidable:
+            # if statement that checksthe collision
+            if rock.collide(player):
+                # when it becomes true, print "Game over!" to the console and immediately exit the program
+                print("Game over!")
+                return
         # render everything using a loop
         for item in drawable:
             # render this item
