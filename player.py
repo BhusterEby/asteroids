@@ -11,6 +11,8 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         # setting a rotation variable
         self.rotation = 0
+        # setting up a timer variable, to act as a cooldown for shooting
+        self.cooldown = 0
     
     # method for drawing the triangle over the hitbox
     def triangle(self):
@@ -66,8 +68,18 @@ class Player(CircleShape):
         
         # SHOOTING: checks to see if "space" gets pressed
         if keys[pygame.K_SPACE]:
-            # shoot bullet
-            self.shoot()
+            # check if the cooldown timer is still active
+            if self.cooldown > 0:
+                # don't shoot
+                pass
+            else:
+                # if the timer isn't active, shoot bullet
+                self.shoot()
+                # set the cooldown
+                self.cooldown = PLAYER_SHOOT_COOLDOWN
+        
+        # decrease the cooldown timer
+        self.cooldown -= dt
     
     # a method to shoot bullets with
     def shoot(self):
