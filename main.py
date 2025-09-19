@@ -73,7 +73,7 @@ def main():
                 # do they collide?
                 if shot.collide(rock):
                     # if true, KILL
-                    rock.kill()
+                    rock.split()
                     shot.kill()
         # render everything using a loop
         for item in drawable:
